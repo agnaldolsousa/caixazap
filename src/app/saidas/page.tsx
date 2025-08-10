@@ -5,18 +5,17 @@ import { supabase } from '@/lib/supabase';
 
 type Saida = {
   id: number;
-  data: string;        // YYYY-MM-DD
+  data: string;
   fornecedor: string;
   descricao: string;
   valor: number;
 };
 
-// Helpers
 function getCurrentMonthYYYYMM() {
   const d = new Date();
   const mm = String(d.getMonth() + 1).padStart(2, '0');
   const yyyy = d.getFullYear();
-  return `${yyyy}-${mm}`; // ex: 2025-08
+  return `${yyyy}-${mm}`;
 }
 function monthRange(yyyyMm: string) {
   const [y, m] = yyyyMm.split('-').map(Number);
@@ -35,22 +34,17 @@ const currency = new Intl.NumberFormat('pt-BR', {
 });
 
 export default function SaidasPage() {
-  // FORM
   const [data, setData] = useState('');
   const [fornecedor, setFornecedor] = useState('');
   const [descricao, setDescricao] = useState('');
   const [valor, setValor] = useState('');
 
-  // LISTA
   const [saidas, setSaidas] = useState<Saida[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // FILTROS
-  // 1) Mês (YYYY-MM) — usa <input type="month" />
   const [filterMonth, setFilterMonth] = useState<string>(getCurrentMonthYYYYMM());
-  // 2) Período (prioridade quando ambos preenchidos)
-  const [rangeStart, setRangeStart] = useState<string>(''); // YYYY-MM-DD
-  const [rangeEnd, setRangeEnd] = useState<string>('');     // YYYY-MM-DD
+  const [rangeStart, setRangeStart] = useState<string>('');
+  const [rangeEnd, setRangeEnd] = useState<string>('');
 
   const totalPeriodo = useMemo(
     () => saidas.reduce((acc, s) => acc + (Number(s.valor) || 0), 0),
@@ -73,7 +67,6 @@ export default function SaidasPage() {
 
       const { data, error } = await query.order('data', { ascending: false });
       if (error) {
-        console.error(error);
         alert('Erro ao buscar saídas: ' + error.message);
         return;
       }
@@ -88,7 +81,6 @@ export default function SaidasPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterMonth, rangeStart, rangeEnd]);
 
-  // SALVAR
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
@@ -111,7 +103,6 @@ export default function SaidasPage() {
     if (inserted && inserted.length > 0) {
       const novo = inserted[0] as Saida;
 
-      // Se está em período: valida no período; senão, valida no mês selecionado
       let pertence = true;
       if (rangeStart && rangeEnd) {
         const start = rangeStart <= rangeEnd ? rangeStart : rangeEnd;
@@ -125,14 +116,12 @@ export default function SaidasPage() {
       if (pertence) setSaidas((prev) => [novo, ...prev]);
     }
 
-    // Limpa form
     setData('');
     setFornecedor('');
     setDescricao('');
     setValor('');
   }
 
-  // EXCLUIR
   async function handleDelete(id: number) {
     const confirmar = confirm('Tem certeza que deseja excluir este registro?');
     if (!confirmar) return;
@@ -155,126 +144,45 @@ export default function SaidasPage() {
   }
 
   return (
-    <div className="min-h-screen px-6 py-10 bg-gradient-to-b from-blue-800 to-blue-400 text-white">
-      <h1 className="text-2xl font-bold text-center mb-6">Módulo: Saídas</h1>
+    <div className="min-h-screen app-bg app-text px-6 py-10">
+      <h1 className="app-title">Módulo: Saídas</h1>
 
       <div className="flex flex-col md:flex-row gap-4 max-w-6xl mx-auto">
-        {/* FORMULÁRIO (esquerda) */}
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white text-black p-6 rounded-lg shadow-md flex-1"
-        >
+        {/* FORMULÁRIO */}
+        <form onSubmit={handleSubmit} className="app-card flex-1">
           <div className="grid grid-cols-1 gap-3">
-            <input
-              type="date"
-              value={data}
-              onChange={(e) => setData(e.target.value)}
-              className="w-full p-2 border rounded"
-              required
-            />
-            <input
-              type="text"
-              placeholder="Fornecedor"
-              value={fornecedor}
-              onChange={(e) => setFornecedor(e.target.value)}
-              className="w-full p-2 border rounded"
-              required
-            />
-            <input
-              type="text"
-              placeholder="Descrição"
-              value={descricao}
-              onChange={(e) => setDescricao(e.target.value)}
-              className="w-full p-2 border rounded"
-              required
-            />
-            <input
-              type="number"
-              step="0.01"
-              placeholder="Valor"
-              value={valor}
-              onChange={(e) => setValor(e.target.value)}
-              className="w-full p-2 border rounded"
-              required
-            />
-            <button
-              type="submit"
-              className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 w-full"
-            >
-              Salvar
-            </button>
+            <input type="date" value={data} onChange={(e) => setData(e.target.value)} className="app-input" required />
+            <input type="text" placeholder="Fornecedor" value={fornecedor} onChange={(e) => setFornecedor(e.target.value)} className="app-input" required />
+            <input type="text" placeholder="Descrição" value={descricao} onChange={(e) => setDescricao(e.target.value)} className="app-input" required />
+            <input type="number" step="0.01" placeholder="Valor" value={valor} onChange={(e) => setValor(e.target.value)} className="app-input" required />
+            <button type="submit" className="app-btn w-full">Salvar</button>
           </div>
         </form>
 
-        {/* LISTAGEM + FILTROS (direita) */}
-        <div className="bg-white text-black p-6 rounded-lg shadow-md flex-1 flex flex-col">
-          {/* FILTROS */}
+        {/* LISTAGEM + FILTROS */}
+        <div className="app-card flex-1 flex flex-col">
           <div className="space-y-3 mb-4">
-            {/* Filtro por MÊS (apenas mês) */}
+            {/* Filtro Mês */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <div className="flex items-center gap-2">
-                <label htmlFor="filtroMes" className="font-medium">
-                  Filtrar por Mês:
-                </label>
-                <input
-                  id="filtroMes"
-                  type="month"
-                  value={filterMonth}
-                  onChange={(e) => setFilterMonth(e.target.value)}
-                  className="p-2 border rounded"
-                  disabled={!!(rangeStart && rangeEnd)} // desabilita se período ativo
-                />
+                <label htmlFor="filtroMes" className="font-medium">Filtrar por Mês:</label>
+                <input id="filtroMes" type="month" value={filterMonth} onChange={(e) => setFilterMonth(e.target.value)} className="app-input" disabled={!!(rangeStart && rangeEnd)} />
               </div>
-              <button
-                onClick={goToCurrentMonth}
-                className="text-sm px-3 py-2 rounded border hover:bg-gray-100"
-                type="button"
-                title="Ir para o mês atual"
-                disabled={!!(rangeStart && rangeEnd)}
-              >
-                Mês atual
-              </button>
-              <button
-                onClick={() => setFilterMonth('')}
-                className="text-sm px-3 py-2 rounded border hover:bg-gray-100"
-                type="button"
-                title="Limpar filtro de mês"
-                disabled={!!(rangeStart && rangeEnd)}
-              >
-                Limpar mês
-              </button>
+              <button onClick={goToCurrentMonth} type="button" className="app-btn text-sm" disabled={!!(rangeStart && rangeEnd)}>Mês atual</button>
+              <button onClick={() => setFilterMonth('')} type="button" className="app-btn text-sm" disabled={!!(rangeStart && rangeEnd)}>Limpar mês</button>
             </div>
 
-            {/* Filtro por PERÍODO */}
+            {/* Filtro Período */}
             <div className="flex flex-col sm:flex-row items-start sm:items-end gap-3">
               <div className="flex flex-col">
                 <label htmlFor="inicio" className="font-medium">Data inicial</label>
-                <input
-                  id="inicio"
-                  type="date"
-                  value={rangeStart}
-                  onChange={(e) => setRangeStart(e.target.value)}
-                  className="p-2 border rounded"
-                />
+                <input id="inicio" type="date" value={rangeStart} onChange={(e) => setRangeStart(e.target.value)} className="app-input" />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="fim" className="font-medium">Data final</label>
-                <input
-                  id="fim"
-                  type="date"
-                  value={rangeEnd}
-                  onChange={(e) => setRangeEnd(e.target.value)}
-                  className="p-2 border rounded"
-                />
+                <input id="fim" type="date" value={rangeEnd} onChange={(e) => setRangeEnd(e.target.value)} className="app-input" />
               </div>
-              <button
-                onClick={clearPeriod}
-                className="text-sm px-3 py-2 rounded border hover:bg-gray-100"
-                type="button"
-                title="Limpar período"
-              >
-                Limpar período
-              </button>
+              <button onClick={clearPeriod} type="button" className="app-btn text-sm">Limpar período</button>
 
               <div className="sm:ml-auto text-sm text-gray-700">
                 <span className="font-semibold">Total do período: </span>
@@ -284,7 +192,6 @@ export default function SaidasPage() {
           </div>
 
           <h2 className="text-lg font-semibold mb-2">Saídas Registradas</h2>
-
           {loading ? (
             <p>Carregando...</p>
           ) : saidas.length === 0 ? (
@@ -292,33 +199,15 @@ export default function SaidasPage() {
           ) : (
             <ul className="space-y-2 max-h-[500px] overflow-y-auto pr-2">
               {saidas.map((s) => (
-                <li
-                  key={s.id}
-                  className="border p-3 rounded bg-gray-50 hover:bg-gray-100"
-                >
+                <li key={s.id} className="border p-3 rounded bg-gray-50 hover:bg-gray-100">
                   <div className="flex items-start justify-between gap-3">
                     <div className="text-sm">
-                      <p>
-                        <strong>Data:</strong>{' '}
-                        <span className="tabular-nums">{s.data}</span>
-                      </p>
+                      <p><strong>Data:</strong> <span className="tabular-nums">{s.data}</span></p>
                       <p><strong>Fornecedor:</strong> {s.fornecedor}</p>
                       <p><strong>Descrição:</strong> {s.descricao}</p>
-                      <p>
-                        <strong>Valor:</strong>{' '}
-                        <span className="tabular-nums">
-                          {currency.format(Number(s.valor || 0))}
-                        </span>
-                      </p>
+                      <p><strong>Valor:</strong> <span className="tabular-nums">{currency.format(Number(s.valor || 0))}</span></p>
                     </div>
-                    <button
-                      onClick={() => handleDelete(s.id)}
-                      className="shrink-0 bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700 text-sm"
-                      type="button"
-                      title="Excluir"
-                    >
-                      Excluir
-                    </button>
+                    <button onClick={() => handleDelete(s.id)} type="button" className="shrink-0 !bg-red-600 hover:!bg-red-700 text-white px-3 py-2 rounded text-sm">Excluir</button>
                   </div>
                 </li>
               ))}
