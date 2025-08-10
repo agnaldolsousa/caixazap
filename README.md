@@ -1,7 +1,7 @@
 # 📲 Caixazap – Gestão de Caixa via WhatsApp
 
 ## ✅ Status
-Em desenvolvimento – interface base criada, planos prontos, layout em progresso.
+Em desenvolvimento – interface base criada, tela de entradas funcionando, rotas de saídas em construção, layout em progresso.
 
 ---
 
@@ -10,52 +10,55 @@ Facilitar a **gestão financeira de pequenos negócios** pelo WhatsApp. O usuár
 
 ---
 
-## 💡 O que já foi feito
+## 📦 Estrutura do Banco de Dados – Supabase
 
-### 🔹 Estrutura Base
-- Projeto criado com **Next.js** e **Tailwind CSS**.
-- Componentes principais criados: `Navbar`, `Planos`, `Contato`.
-
-### 🔹 Página Inicial
-- Hero section com título:  
-  **"Controle seu caixa direto pelo WhatsApp"**
-- Botão de CTA: “Começar agora” redireciona para `/planos`.
-
-### 🔹 Página de Planos
-- Três planos exibidos: `Grátis`, `Pro`, `Empresa`.
-- Estilo com cartão centralizado e botão de ação.
-- Adicionado **background com imagem** (`grafico2.png.jpg`) com transparência em toda a página.
-- Cartões com fundo branco semitransparente (glassmorphism).
-
-### 🔹 Imagens
-- Adicionadas 4 imagens de ilustração 3D no diretório:  
-  `public/images/`
-
----
-
-## 🛠️ Como continuar o projeto
-
-### 📁 Estrutura recomendada
-- Criar o arquivo `README.md` com esse conteúdo.
-- Manter imagens em `public/images/`
-- Seguir os nomes padrão dos componentes já criados.
-
----
-
-## 🌍 Como publicar para testar online
-
-Em breve, será feito deploy no **Vercel** para acesso online via link público.
+| Tabela                | Descrição                                      | Status        |
+|------------------------|------------------------------------------------|----------------|
+| `entradas`             | Registro de entradas financeiras                | ✅ Feito       |
+| `saida`                | Registro de saídas financeiras                  | ✅ Em progresso|
+| `formas_recebimento`  | Formas de recebimento (Pix, dinheiro...)        | ✅ Feito       |
+| `motoboys`             | Cadastro e controle dos entregadores            | ⬜ A Fazer     |
+| `custos_fixos`         | Custos recorrentes fixos                        | ⬜ A Fazer     |
+| `faturamento_mensal`  | Resumo mensal de faturamento                    | ⬜ A Fazer     |
+| `contas_a_pagar`      | Contas pendentes com data de vencimento         | ⬜ A Fazer     |
 
 ---
 
 ## 🚧 Próximas Etapas
 
-1. Criar seção de funcionalidades com ícones e textos.
-2. Adicionar integração com Supabase para autenticação.
-3. Preparar o deploy no Vercel com domínio gratuito.
+- [x] Página de Saídas (formulário + listagem)
+- [ ] Tela de Dashboard mensal
+- [ ] Controle de Motoboys
+- [ ] Autenticação com Supabase
+- [ ] Deploy na Vercel
+
+---
+
+## 📁 Estrutura de Pastas – Next.js App Router
+
+```
+src/
+├── app/
+│   ├── saidas/
+│   │   ├── page.tsx           ← tela de listagem das saídas
+│   │   ├── nova/page.tsx      ← formulário de nova saída
+├── components/
+│   └── SaidaForm.tsx         ← componente com o formulário de saída
+├── lib/
+│   └── supabase.ts           ← conexão com o Supabase
+```
+
+---
+
+## 🔮 Recursos Planejados
+
+- Integração com OCR para leitura de notas via imagem (foto)
+- Dashboard com gráficos (Recharts)
+- Select dinâmico com formas de pagamento
+- Sistema de planos com Stripe (Grátis, Pro, Empresa)
 
 ---
 
 ## ✉️ Contato
 
-> Criado com ❤️ por Agnaldo Sousa
+Criado por **Agnaldo Sousa** – 2025
