@@ -1,41 +1,78 @@
+'use client';
+
+import Image from 'next/image';
+
 export default function Planos() {
+  const planos = [
+    {
+      nome: 'Básico',
+      preco: 'R$ 29/mês',
+      descricao: 'Ideal para pequenos negócios',
+      beneficios: [
+        'Controle básico de caixa',
+        'Exportação simples de relatórios',
+        'Suporte via e-mail'
+      ]
+    },
+    {
+      nome: 'Pro',
+      preco: 'R$ 59/mês',
+      descricao: 'Recursos avançados e relatórios',
+      beneficios: [
+        'Tudo do Básico',
+        'Relatórios avançados e gráficos',
+        'Suporte via WhatsApp'
+      ]
+    },
+    {
+      nome: 'Premium',
+      preco: 'R$ 99/mês',
+      descricao: 'Tudo incluso + suporte VIP',
+      beneficios: [
+        'Tudo do Pro',
+        'Consultoria personalizada',
+        'Suporte VIP 24h'
+      ]
+    }
+  ];
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-800 to-blue-400 p-6">
-      <div className="text-center">
-        <h1 className="text-white text-3xl font-bold mb-10">Nossos Planos</h1>
-        <div className="flex flex-col lg:flex-row justify-center gap-8">
+    <div className="relative min-h-screen px-6 py-10 flex items-center justify-center">
+      {/* Imagem de fundo */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/images/hero-mobile1.jpg"
+          alt="Planos CaixaZap"
+          fill
+          className="object-cover"
+          quality={100}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-8npm run devue-700/40"></div>
+      </div>
 
-          {/* Plano Grátis */}
-          <div className="bg-white rounded-xl shadow-lg p-8 w-[400px]">
-            <h2 className="text-2xl font-bold text-gray-800">Grátis</h2>
-            <p className="text-base text-gray-600 mt-1">Ideal para começar</p>
-            <p className="text-3xl font-bold mt-4 text-gray-800">R$ 0/mês</p>
-            <button className="bg-blue-700 text-white mt-6 px-8 py-3 rounded hover:bg-blue-800 font-semibold">
-              Escolher
-            </button>
+      {/* Conteúdo */}
+      <div className="grid md:grid-cols-3 gap-8 w-full max-w-6xl">
+        {planos.map((plano, index) => (
+          <div
+            key={index}
+            className="bg-white/90 rounded-2xl shadow-lg p-6 hover:scale-105 transition-transform"
+          >
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">{plano.nome}</h2>
+            <p className="text-lg font-semibold text-blue-700 mb-4">{plano.preco}</p>
+            <p className="text-gray-600 mb-4">{plano.descricao}</p>
+            <ul className="text-gray-700 mb-6 list-disc pl-5 space-y-1">
+              {plano.beneficios.map((beneficio, i) => (
+                <li key={i}>{beneficio}</li>
+              ))}
+            </ul>
+            <a
+              href="#"
+              className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors"
+            >
+              Assinar
+            </a>
           </div>
-
-          {/* Plano Pro */}
-          <div className="bg-white rounded-xl shadow-lg p-8 w-[400px]">
-            <h2 className="text-2xl font-bold text-gray-800">Pro</h2>
-            <p className="text-base text-gray-600 mt-1">Mais recursos e suporte</p>
-            <p className="text-3xl font-bold mt-4 text-gray-800">R$ 29/mês</p>
-            <button className="bg-blue-700 text-white mt-6 px-8 py-3 rounded hover:bg-blue-800 font-semibold">
-              Escolher
-            </button>
-          </div>
-
-          {/* Plano Empresa */}
-          <div className="bg-white rounded-xl shadow-lg p-8 w-[400px]">
-            <h2 className="text-2xl font-bold text-gray-800">Empresa</h2>
-            <p className="text-base text-gray-600 mt-1">Soluções personalizadas</p>
-            <p className="text-3xl font-bold mt-4 text-gray-800">Sob consulta</p>
-            <button className="bg-blue-700 text-white mt-6 px-8 py-3 rounded hover:bg-blue-800 font-semibold">
-              Falar com vendas
-            </button>
-          </div>
-
-        </div>
+        ))}
       </div>
     </div>
   );
