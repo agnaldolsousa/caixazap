@@ -7,9 +7,8 @@ export async function POST(req: Request) {
     const resend = new Resend(process.env.RESEND_API_KEY!);
 
     await resend.emails.send({
-      from: process.env.CONTACT_FROM!,       // ex: "CaixaZap <noreply@seu-dominio.com>"
-      to: process.env.CONTACT_TO!,           // seu e-mail de destino
-      reply_to: email,                       // pra você responder direto ao cliente
+      from: process.env.CONTACT_FROM!,   // ex: "CaixaZap <onboarding@resend.dev>"
+      to: process.env.CONTACT_TO!,       // seu e-mail de destino
       subject: `Contato - ${nome}`,
       text: `
 Nome: ${nome}
@@ -18,7 +17,10 @@ WhatsApp: ${whatsapp}
 
 Mensagem:
 ${mensagem}
-      `.trim()
+      `.trim(),
+      headers: {
+        'Reply-To': email                // permite responder direto ao cliente
+      }
     });
 
     return Response.json({ ok: true });
