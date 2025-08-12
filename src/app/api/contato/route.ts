@@ -4,34 +4,42 @@ export async function POST(req: Request) {
   try {
     const { nome, email, whatsapp, mensagem } = await req.json();
 
-    const resend = new Resend(process.env.RESEND_API_KEY!);
+    // 1) Checagem rápida das envs (só loga no Vercel)
+    console.log('CONTACT_FROM?', !!process.env.CONTACT_FROM);
+    console.log('CONTACT_TO?', !!process.env.CONTACT_TO);
+    console.log('RESEND_API_KEY?', process.env.RESEND_API_KEY ? 'OK' : 'MISSING');
 
-    const envio = await resend.emails.send({
-      from: process.env.CONTACT_FROM!,   // ex: "CaixaZap <onboarding@resend.dev>"
-      to: process.env.CONTACT_TO!,       // seu e-mail de destino
-      subject: `Contato - ${nome}`,
-      text: `
+    // 2) Monta o texto
+    const text = `
 Nome: ${nome}
 E-mail: ${email}
 WhatsApp: ${whatsapp}
 
 Mensagem:
 ${mensagem}
-      `.trim(),
+    `.trim();
+
+    // 3) Dispara no Resend
+    const resend = new Resend(process.env.RESEND_API_KEY!);
+    const result = await resend.emails.send({
+      from: process.env.CONTACT_FROM!,   // ex: 'CaixaZap <onboarding@resend.dev>'
+      to: process.env.CONTACT_TO!,       // seu e-mail destino
+      subject: `Contato - ${nome}`,
+      text,
       headers: { 'Reply-To': email }
     });
 
+    // 4) Logs no servidor (ver em Vercel → Logs)
+    console.log('Resend result:', JSON.stringify(result));
+
+    // 5) Retorna pro navegador o que o Resend respondeu
     return Response.json({
-      ok: true,
-      debug: {
-        recebido: { nome, email, whatsapp, mensagem },
-        respostaResend: envio
-      }
+      ok: !result.error,
+      id: result.data?.id ?? null,
+      error: result.error ?? null,
     });
-  } catch (e) {
-    return new Response(
-      JSON.stringify({ ok: false, erro: String(e) }),
-      { status: 500 }
-    );
+  } catch (e: any) {
+    console.error('API /contato error:', e);
+    return new Response('Erro ao enviar e-mail', { status: 500 });
   }
 }
