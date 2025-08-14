@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
@@ -11,13 +11,6 @@ export default function LoginPage() {
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
-
-  // Se já estiver logado, manda direto pro dashboard
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      if (data.user) router.replace('/dashboard');
-    });
-  }, [router]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -37,7 +30,7 @@ export default function LoginPage() {
     }
 
     if (data.user) {
-      router.push('/dashboard'); // ✅ Passo 3: redireciona
+      router.push('/dashboard'); // ✅ Só redireciona depois do login
     }
   }
 
@@ -46,7 +39,7 @@ export default function LoginPage() {
       {/* Fundo com imagem */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/image/hero-mobile1.jpg"
+          src="/images/hero-mobile1.jpg" // ✅ Caminho corrigido
           alt="Fundo CaixaZap"
           fill
           priority
@@ -60,7 +53,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-6">
           <h1 className="text-2xl font-bold text-gray-900 text-center">Entrar no CaixaZap</h1>
           <p className="text-gray-600 text-center mt-1">
-            Use o e‑mail e a senha cadastrados.
+            Use o e-mail e a senha cadastrados.
           </p>
 
           <form onSubmit={handleLogin} className="mt-6 space-y-4">

@@ -3,18 +3,18 @@
 import Link from 'next/link'
 
 const modulos = [
-  { id: 1, nome: 'Despesas Fixas', link: '/modulos/despesas-fixas' },
-  { id: 2, nome: 'Faturamento Mensal', link: '/modulos/faturamento-mensal' },
-  { id: 3, nome: 'DNA da Empresa', link: '/modulos/dna' },
-  { id: 4, nome: 'Itens do Cardápio', link: '/modulos/itens-cardapio' },
-  { id: 5, nome: 'Itens Manipulados (Receitas)', link: '/modulos/itens-manipulados' },
-  { id: 6, nome: 'Cadastro de Insumos', link: '/modulos/insumos' },
-  { id: 7, nome: 'Ficha Técnica Manipulação', link: '/modulos/ficha-manipulacao' },
-  { id: 8, nome: 'Ficha Técnica', link: '/modulos/ficha-tecnica' },
-  { id: 9, nome: 'Lucro Atual', link: '/modulos/lucro-atual' },
-  { id: 10, nome: 'Preço de Venda (PV)', link: '/modulos/preco-venda' },
-  { id: 11, nome: 'Combos', link: '/modulos/combos' },
-  { id: 12, nome: 'Fechamento de Caixa', link: '/modulos/fechamento-caixa' },
+  { id: 1, nome: 'Despesas Fixas', link: '/despesas-fixas' },
+  { id: 2, nome: 'Faturamento Mensal', link: '/faturamento-mensal' },
+  { id: 3, nome: 'R-X da Empresa', link: '/raio-x' },
+  { id: 4, nome: 'Itens do Cardápio', link: '/itens-cardapio' },
+  { id: 5, nome: 'Itens Manipulados (Receitas)', link: '/itens-manipulados' },
+  { id: 6, nome: 'Cadastro de Insumos', link: '/insumos' },
+  { id: 7, nome: 'Ficha Técnica Manipulação', link: '/ficha-manipulacao' },
+  { id: 8, nome: 'Ficha Técnica', link: '/ficha-tecnica' },
+  { id: 9, nome: 'Lucro Atual', link: '/lucro-atual' },
+  { id: 10, nome: 'Preço de Venda (PV)', link: '/preco-venda' },
+  { id: 11, nome: 'Combos', link: '/combos' },
+  { id: 12, nome: 'Entradas', link: '/entradas' },
 ]
 
 export default function DashboardPage() {
