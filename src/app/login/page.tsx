@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';               // ✅ adicionamos Link
 import { supabase } from '@/lib/supabase';
 
 export default function LoginPage() {
@@ -25,12 +26,12 @@ export default function LoginPage() {
     setLoading(false);
 
     if (error) {
-      setErro(error.message ?? 'Falha ao entrar. Verifique e tente novamente.');
+      setErro(error.message || 'Falha ao entrar. Verifique seus dados.');
       return;
     }
 
     if (data.user) {
-      router.push('/dashboard'); // ✅ Só redireciona depois do login
+      router.push('/dashboard'); // ✅ só depois de logar
     }
   }
 
@@ -39,7 +40,7 @@ export default function LoginPage() {
       {/* Fundo com imagem */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/images/hero-mobile1.jpg" // ✅ Caminho corrigido
+          src="/images/hero-mobile1.jpg"   // ✅ caminho certo
           alt="Fundo CaixaZap"
           fill
           priority
@@ -83,12 +84,36 @@ export default function LoginPage() {
               />
             </div>
 
-            {erro && <div className="text-red-600 text-sm">{erro}</div>}
+            {/* ✅ Bloco de erro com botões Planos/Contato */}
+            {erro && (
+              <div
+                className="rounded-lg border border-red-200 bg-red-50 p-3 text-red-800 text-sm"
+                aria-live="polite"
+              >
+                <p className="mb-2">
+                  {erro || 'Falha ao entrar. Verifique seus dados.'}
+                </p>
+                <div className="flex items-center gap-3">
+                  <Link
+                    href="/planos"
+                    className="inline-flex items-center justify-center rounded-md px-3 py-2 bg-blue-600 text-white hover:bg-blue-700 transition"
+                  >
+                    Escolher plano
+                  </Link>
+                  <Link
+                    href="/contato"
+                    className="inline-flex items-center justify-center rounded-md px-3 py-2 bg-white text-blue-700 border border-blue-200 hover:bg-blue-50 transition"
+                  >
+                    Falar com a gente
+                  </Link>
+                </div>
+              </div>
+            )}
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full inline-flex items-center justify-center rounded-lg bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium px-4 py-2 transition shadow"
+              className="w-full inline-flex items-center justify-center rounded-lg bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium px-4 py-2 transition shadow disabled:opacity-70"
             >
               {loading ? 'Entrando…' : 'Entrar'}
             </button>
