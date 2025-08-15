@@ -17,9 +17,18 @@
 }
 
 body {
-  color: var(--foreground);
+  /* tipografia básica */
+  color: #ffffff;                 /* texto padrão branco sobre o gradiente */
   font-family: Arial, Helvetica, sans-serif;
+
+  /* 🔵 gradiente global idêntico em todas as páginas (local e Vercel) */
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom, var(--bg-from), var(--bg-to));
+  background-attachment: fixed;   /* evita “quebra” ao rolar */
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
 
 /* ===== CaixaZap Theme (utilitárias) ===== */
 @layer utilities {
