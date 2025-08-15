@@ -4,7 +4,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
   return (
     <html lang="pt-BR">
       <body>
-        <div className="min-h-screen bg-gradient-to-b from-blue-800 to-blue-400">
+        <div className="min-h-screen">
           {/* Navbar de marketing */}
           <nav className="flex items-center justify-between px-6 py-4 text-white">
             <div className="font-extrabold text-xl">CaixaZap</div>

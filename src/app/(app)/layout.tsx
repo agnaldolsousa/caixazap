@@ -8,7 +8,7 @@ export const metadata = { title: 'CaixaZap' };
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-800 to-blue-400">
+    <div className="min-h-screen">
       {/* Topbar */}
       <header className="flex items-center justify-between px-6 py-3 text-white">
         <Link href="/dashboard" className="font-extrabold text-xl hover:opacity-90">
