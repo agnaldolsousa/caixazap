@@ -39,5 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# builds/artefatos extras
+dist/
+.cache/
+.turbo/
 
-.vercel
+# permitir exemplo de env no repo
+!.env.example
+
+# Windows
+Thumbs.db
+
