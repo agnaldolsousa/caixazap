@@ -1,18 +1,14 @@
-// src/components/Navbar.tsx
-'use client';
-import Link from 'next/link';
+// src/app/components/Navbar.tsx
 
 export default function Navbar() {
   return (
-    <nav className="w-full bg-gradient-to-b from-blue-900 to-blue-700">
-      <div className="mx-auto max-w-6xl px-6 py-3 flex items-center justify-between">
-        <Link href="/" className="text-white font-semibold text-xl">CaixaZap</Link>
-
-        <div className="flex items-center gap-6 text-white">
-          {/* Início deve ir para /login na página de vendas */}
-          <Link href="/login" className="hover:opacity-90">Início</Link>
-          <Link href="/planos" className="hover:opacity-90">Planos</Link>
-          <Link href="/contato" className="hover:opacity-90">Contato</Link>
+    <nav className="w-full bg-gradient-to-b from-blue-900 to-blue-700 text-white fixed top-0 z-50">
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center h-16 md:h-20">
+        <h1 className="text-xl font-bold">CaixaZap</h1>
+        <div className="space-x-6 text-sm md:text-base">
+          <a href="/login" className="hover:underline">Início</a>
+          <a href="/planos" className="hover:underline">Planos</a>
+          <a href="/contato" className="hover:underline">Contato</a>
         </div>
       </div>
     </nav>

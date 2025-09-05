@@ -1,15 +1,15 @@
 // src/app/(app)/layout.tsx
-import '../globals.css';
-import Link from 'next/link';
-import AppSidebar from '@/components/AppSidebar';
-import AuthGate from '../../components/AuthGate';  // ✅ importamos o porteiro
+import '../globals.css'
+import Link from 'next/link'
+import AppSidebar from '@/components/AppSidebar'
+import AuthGate from '../../components/AuthGate'
 
-export const metadata = { title: 'CaixaZap' };
+export const metadata = { title: 'CaixaZap' }
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen">
-      {/* Topbar */}
+      {/* Topbar fixa com os dois botões */}
       <header className="flex items-center justify-between px-6 py-3 text-white">
         <Link href="/dashboard" className="font-extrabold text-xl hover:opacity-90">
           CaixaZap
@@ -34,12 +34,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </header>
 
       <div className="flex">
+        {/* Sidebar do seu projeto, do jeitinho que você tinha */}
         <AppSidebar />
-        {/* ✅ protegemos todo o conteúdo do grupo (app) */}
+        {/* Conteúdo protegido */}
         <main className="flex-1 px-6 py-8">
           <AuthGate>{children}</AuthGate>
         </main>
       </div>
     </div>
-  );
+  )
 }

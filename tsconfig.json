@@ -28,6 +28,6 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/app/api/extrair-nota2/route.backup.tx.tx"  ],
   "exclude": ["node_modules"]
 }

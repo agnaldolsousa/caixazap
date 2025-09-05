@@ -1,6 +1,6 @@
-'use client';
+// src/app/(site)/planos/page.tsx
 
-import Image from 'next/image';
+'use client';
 
 export default function Planos() {
   const planos = [
@@ -37,21 +37,17 @@ export default function Planos() {
   ];
 
   return (
-    <div className="relative min-h-screen px-6 py-10 flex items-center justify-center">
-      {/* Imagem de fundo */}
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/images/hero-mobile1.jpg"
-          alt="Planos CaixaZap"
-          fill
-          className="object-cover"
-          quality={100}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-8npm run devue-700/40"></div>
+    <main className="relative min-h-screen flex items-center justify-center px-6 py-10">
+      {/* 🔹 Imagem de fundo com overlay azul */}
+      <div
+        className="absolute inset-0 -z-10 bg-cover bg-center brightness-75"
+        style={{ backgroundImage: "url('/images/hero-mobile1.jpg')" }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-800/20 to-blue-400/20" />
       </div>
 
-      {/* Conteúdo */}
-      <div className="grid md:grid-cols-3 gap-8 w-full max-w-6xl">
+      {/* 🔹 Conteúdo */}
+      <div className="grid gap-8 md:grid-cols-3 w-full max-w-6xl">
         {planos.map((plano, index) => (
           <div
             key={index}
@@ -74,6 +70,6 @@ export default function Planos() {
           </div>
         ))}
       </div>
-    </div>
+    </main>
   );
 }

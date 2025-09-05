@@ -6,12 +6,13 @@ const items = [
   { href: '/entradas', label: 'Entradas' },
   { href: '/despesas-fixas', label: 'Despesas Fixas' },
   { href: '/faturamento-mensal', label: 'Faturamento Mensal' },
-  { href: '/raio-x', label: 'Raio-X' }, // novo nome do antigo DNA
+  { href: '/raio-x', label: 'Raio-X' },
   { href: '/itens-cardapio', label: 'Itens do Cardápio' },
   { href: '/itens-manipulados', label: 'Itens Manipulados' },
   { href: '/cadastro-insumos', label: 'Cadastro de Insumos' },
+  { href: '/upload-nota', label: 'Nota Fiscal (OCR)' }, // 👈 NOVO ITEM
   { href: '/lucro-atual', label: 'Lucro Atual' },
-  { href: '/suporte', label: 'Suporte' }, // suporte dentro do app
+  { href: '/suporte', label: 'Suporte' },
 ];
 
 export default function AppSidebar() {

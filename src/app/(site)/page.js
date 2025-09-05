@@ -1,42 +1,36 @@
-// src/app/(site)/page.js
+// src/app/(site)/page.tsx
+
 'use client';
 
-import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   return (
-    <main>
-      {/* HERO full-screen: fundo cobre toda a largura e altura visível (desconta a navbar) */}
-      <section
-        className="relative w-full bg-cover bg-center
-                   min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)]"
-        style={{ backgroundImage: "url('/images/hero-mobile1.jpg')" }} // ⬅️ troque pelo arquivo certo
-      >
-        {/* máscara leve para dar contraste ao card */}
-        <div className="absolute inset-0 bg-black/10" />
+    <main className="relative min-h-screen">
+      {/* Imagem de fundo mais em destaque */}
+      <Image
+        src="/images/hero-mobile.jpg"
+        alt="Fundo CaixaZap"
+        fill
+        priority
+        className="object-cover object-center brightness-90 -z-10"
+      />
 
-        {/* conteúdo centralizado sobre a imagem */}
-        <div className="relative flex items-center justify-center
-                        min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)]
-                        px-4 md:px-6">
-          <div className="max-w-2xl rounded-2xl bg-white/90 backdrop-blur p-6 shadow-xl">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-center text-gray-900">
-              Controle seu caixa <br /> direto pelo WhatsApp.
-            </h1>
-            <p className="mt-3 text-center text-gray-700">
-              O <strong>Caixazap</strong> facilita a gestão do seu dinheiro, registra
-              entradas e saídas, e envia alertas — tudo sem precisar de planilhas
-              ou apps complicados.
-            </p>
-            <div className="mt-6 flex justify-center">
-              <Link
-                href="/login"
-                className="rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3"
-              >
-                Começar agora
-              </Link>
-            </div>
-          </div>
+      {/* Overlay azul mais leve */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-800/20 to-blue-400/20 -z-10" />
+
+      {/* Caixa centralizada */}
+      <section className="relative z-10 flex items-center justify-center min-h-screen px-6 text-center">
+        <div className="bg-white/90 rounded-xl shadow-lg p-8 max-w-2xl">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+            Controle seu caixa direto pelo WhatsApp.
+          </h1>
+          <p className="text-lg md:text-xl text-gray-700 mb-6">
+            O <strong>Caixazap</strong> facilita a gestão do seu dinheiro, registra entradas e saídas, e envia alertas — tudo sem precisar de planilhas ou apps complicados.
+          </p>
+          <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md">
+            Começar agora
+          </button>
         </div>
       </section>
     </main>

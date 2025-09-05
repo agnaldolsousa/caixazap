@@ -13,7 +13,7 @@ export default function ContatoPage() {
           className="object-cover"
           quality={100}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/30 to-blue-500/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 to-blue-500/20"></div>
       </div>
 
       {/* Conteúdo */}
